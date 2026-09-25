@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_END
 - (nonnull instancetype)init;
 - (nonnull instancetype)initWithName:(nullable NSString *)name;
 - (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password;
-- (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password address:(nonnull char *)address;
+- (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password address:(nonnull const char *)address;
 - (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password port:(NSUInteger)port;
 - (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password address:(nullable char *)address port:(NSUInteger)port;
 

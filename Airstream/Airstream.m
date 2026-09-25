@@ -79,7 +79,7 @@ static char const ASDefaultHardwareAddress[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x
   return [self initWithName:name password:password port:ASDefaultPort];
 }
 
-- (instancetype)initWithName:(NSString *)name password:(NSString *)password address:(char *)address {
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password address:(const char *)address {
   return [self initWithName:name password:password address:address port:ASDefaultPort];
 }
 
