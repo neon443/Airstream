@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_END
 /// Server configuration
 @property (nonatomic, nonnull) NSString *name;
 @property (nonatomic, nullable) NSString *password;
-@property (nonatomic, nonnull) char *address;
+@property (nonatomic, nonnull) u_char *address;
 @property (nonatomic) NSUInteger port;
 
 /// Streaming configuration
