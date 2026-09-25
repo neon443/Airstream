@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_END
 /// Server configuration
 @property (nonatomic, nonnull) NSString *name;
 @property (nonatomic, nullable) NSString *password;
+@property (nonatomic, nonnull) char *address;
 @property (nonatomic) NSUInteger port;
 
 /// Streaming configuration
@@ -94,7 +95,9 @@ NS_ASSUME_NONNULL_END
 - (nonnull instancetype)init;
 - (nonnull instancetype)initWithName:(nullable NSString *)name;
 - (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password;
+- (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password address:(nonnull char *)address;
 - (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password port:(NSUInteger)port;
+- (nonnull instancetype)initWithName:(nullable NSString *)name password:(nullable NSString *)password address:(nullable char *)address port:(NSUInteger)port;
 
 /// Basic operations
 - (void)startServer;

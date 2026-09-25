@@ -29,6 +29,7 @@ NSString *const ASMetadataSongDiscNumberKey = @"asdn";
 /// DACP remote constants
 NSString *const ASDACPNamePrefix = @"iTunes_Ctrl_";
 NSString *const ASDACPServiceType = @"_dacp._tcp";
+static char const ASDefaultHardwareAddress[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
 
 @interface Airstream () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 
@@ -57,11 +58,11 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
 @end
 
 @implementation Airstream {
-  dnssd_t *dnssd;
-  raop_t *raop;
-
-  NSNetServiceBrowser *serviceBrowser;
-  NSNetService *dacpService;
+	dnssd_t *dnssd;
+	raop_t *raop;
+	
+	NSNetServiceBrowser *serviceBrowser;
+	NSNetService *dacpService;
 }
 
 // MARK: - Initializers
@@ -78,7 +79,15 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
   return [self initWithName:name password:password port:ASDefaultPort];
 }
 
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password address:(char *)address {
+  return [self initWithName:name password:password address:address port:ASDefaultPort];
+}
+
 - (instancetype)initWithName:(NSString *)name password:(NSString *)password port:(NSUInteger)port {
+  return [self initWithName:name password:password port:port];
+}
+
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password address:(char *)address port:(NSUInteger)port {
   self = [super init];
 
   if (!self) {
@@ -97,6 +106,12 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
     self.password = nil;
   }
 
+  if (address != nil) {
+    self.address = address;
+  } else {
+    self.address = (char *)ASDefaultHardwareAddress;
+  }
+  
   self.port = port;
 
   self.running = NO;
@@ -127,7 +142,6 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
   raopCallbacks.audio_set_coverart = audio_set_coverart;
 
   // Server settings
-  const char address[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
   const char *name = [self.name UTF8String];
   const char *password = [self.password UTF8String];
   unsigned short port = self.port;
@@ -140,7 +154,7 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
   }
 
   raop_set_log_level(raop, RAOP_LOG_INFO);
-  raop_start(raop, &port, address, sizeof(address), password);
+  raop_start(raop, &port, self.address, sizeof(self.address), password);
 
   // Start DNS-SD service
   int error;
@@ -151,7 +165,7 @@ NSString *const ASDACPServiceType = @"_dacp._tcp";
     return;
   }
 
-  dnssd_register_raop(dnssd, name, port, address, sizeof(address), 0);
+  dnssd_register_raop(dnssd, name, port, self.address, sizeof(self.address), 0);
 
   self.running = YES;
 }

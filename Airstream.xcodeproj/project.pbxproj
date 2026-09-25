@@ -114,7 +114,10 @@
 				D18FC1C01DC569AD00563F36 /* Libraries */,
 				D18FC1A81DC5689200563F36 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
 		};
 		D1524B391DC562AF009C5D23 /* Products */ = {
 			isa = PBXGroup;
