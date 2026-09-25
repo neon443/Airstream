@@ -14,6 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// RAOP server constants
+extern char const ASDefaultHardwareAddress[];
 extern NSUInteger const ASDefaultPort;
 extern NSUInteger const ASMaxClients;
 

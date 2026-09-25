@@ -29,7 +29,7 @@ NSString *const ASMetadataSongDiscNumberKey = @"asdn";
 /// DACP remote constants
 NSString *const ASDACPNamePrefix = @"iTunes_Ctrl_";
 NSString *const ASDACPServiceType = @"_dacp._tcp";
-static char const ASDefaultHardwareAddress[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
+char const ASDefaultHardwareAddress[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
 
 @interface Airstream () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 
