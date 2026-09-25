@@ -79,7 +79,7 @@ char const ASDefaultHardwareAddress[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
   return [self initWithName:name password:password port:ASDefaultPort];
 }
 
-- (instancetype)initWithName:(NSString *)name password:(NSString *)password address:(const char *)address {
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password address:(const char [6])address {
   return [self initWithName:name password:password address:address port:ASDefaultPort];
 }
 
@@ -87,7 +87,7 @@ char const ASDefaultHardwareAddress[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
   return [self initWithName:name password:password port:port];
 }
 
-- (instancetype)initWithName:(NSString *)name password:(NSString *)password address:(char *)address port:(NSUInteger)port {
+- (instancetype)initWithName:(NSString *)name password:(NSString *)password address:(char [6])address port:(NSUInteger)port {
   self = [super init];
 
   if (!self) {
@@ -154,7 +154,7 @@ char const ASDefaultHardwareAddress[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
   }
 
   raop_set_log_level(raop, RAOP_LOG_INFO);
-  raop_start(raop, &port, self.address, sizeof(self.address), password);
+  raop_start(raop, &port, self.address, 6, password);
 
   // Start DNS-SD service
   int error;
@@ -165,7 +165,7 @@ char const ASDefaultHardwareAddress[] = {0x48, 0x5d, 0x60, 0x7c, 0xee, 0x22};
     return;
   }
 
-  dnssd_register_raop(dnssd, name, port, self.address, sizeof(self.address), 0);
+  dnssd_register_raop(dnssd, name, port, self.address, 6, 0);
 
   self.running = YES;
 }
